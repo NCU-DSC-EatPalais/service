@@ -22,7 +22,7 @@ router.get('/shop', (req, res)=>{
   page = page || 0;
   let sql = `SELECT * FROM DSC.users WHERE name LIKE"%${name}%" limit ${page*10}, 10`;
   res.database.query( sql, (e, r, f)=>{
-    res.render( 'guest-home', { list: r, shop_name: name} );
+    res.render( 'guest-home', { list: r, shop_name: name, name:(req.session.name || "訪客")} );
   } );
 });
 
@@ -39,8 +39,16 @@ router.get('/shop/:id', (req, res)=>{
 	} );
 });
 
-router.get('/shop/:id/preorder', (req, res)=>{
+router.get('/shop/:id/calendar', (req, res)=>{
+	let { id } = req.params;
+	res.render( 'shop-calendar', {name: req.session.name || "訪客"} );
+});
 
+router.get('/shop/:id/preorder/:year/:month/:day', (req, res)=>{
+	let { id, year, month, day } = req.params;
+	res.render('preorder', {
+		id, year, month, day
+	});
 });
 
 module.exports = router;

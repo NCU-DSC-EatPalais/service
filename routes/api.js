@@ -27,19 +27,20 @@ router.post("/login", (req, res)=>{
 });
 
 router.get('/', (req, res)=>{
-  let { name } = req.query;
-  let sql = `SELECT * FROM DSC.users WHERE name="${ name }"`;
+  let { name, page } = req.query;
+  let sql = `SELECT * FROM DSC.users WHERE name="${ name }" limit ${page}, 10`;
 
   res.database.query( sql, (e, r, f)=>{
-    
+    res.json( r );
   } );
 });
 
-router.get('/logout/', (req, res)=>{
+router.get('/logout', (req, res)=>{
   req.session.destroy(()=>{
     res.redirect("/");
   });
 });
+
 
 
 // login required api: ↓
@@ -53,9 +54,6 @@ router.all("*", (req, res, next)=>{
   }
 });
 
-router.get('/dorm/sheet', (req, res)=>{
-  res.json([ {sheet_id:1, time:"2021-05-12 16:46:32", dorm:"G14", location:"空間", reporter:"Fucking hell", formid:1} ]);
-});
 
 
 

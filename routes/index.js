@@ -3,14 +3,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next){	
-	console.log( req.session.uid );
 	let type = req.session.TYPE;
 	if( type == undefined ){
 		res.render('index', { e: req.query.e || undefined });
 	}else if( type == 'shop'){
-		res.render("shop-home", { name: req.session.name });
+		res.render("shop-home", { uid: req.session.uid, name: req.session.name });
 	}else if( type == 'guest'){
-		res.render( "guest-home", { name: req.session.name } );
+		res.database.query( `SELECT id, name, address FROM DSC.users ORDER BY RAND() LIMIT 0, 10`, ( e, r, f )=>{
+			console.log( r );
+			res.render( "guest-home", { uid: req.session.uid, name: req.session.name, list:r } );
+		} );
 	}
 });
 

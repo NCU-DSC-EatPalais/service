@@ -9,8 +9,9 @@ router.get('/', function(req, res, next){
 
 router.post("/login", (req, res)=>{
   let { ACC, PWD, TYPE } = req.body;
-  let table = { shop: "users", guest: "guest" }[TYPE];
+  let table = { shop: "users", guest: "guests" }[TYPE];
   let sql = `SELECT * FROM DSC.${table} WHERE account="${(ACC)}" AND password=md5("${(PWD)}")`;
+  console.log( sql )
   res.database.query( sql, (err, r, fields) => {
     if( r.length > 0 ){
       req.session.uid = r[0]['id'];
@@ -25,9 +26,17 @@ router.post("/login", (req, res)=>{
 
 });
 
+router.get('/', (req, res)=>{
+  let { name } = req.query;
+  let sql = `SELECT * FROM DSC.users WHERE name="${ name }"`;
+
+  res.database.query( sql, (e, r, f)=>{
+    
+  } );
+});
+
 router.get('/logout/', (req, res)=>{
   req.session.destroy(()=>{
-    console.log("fuck")
     res.redirect("/");
   });
 });
@@ -37,7 +46,7 @@ router.get('/logout/', (req, res)=>{
 
 router.all("*", (req, res, next)=>{
   if( !(req.session.uid) ){
-    console.log("Other need login action");
+    // console.log("Other need login action");
     res.redirect("/?e=0");
   }else{
     next();

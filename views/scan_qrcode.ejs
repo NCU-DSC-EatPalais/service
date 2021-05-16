@@ -3,16 +3,52 @@
   <head>
     <title>Instascan</title>
     <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="/sweetalert2.all.min.js"></script>
+    <style>
+      body{font-size: 68px;}
+    </style>
   </head>
   <body>
-    <video id="preview"></video>
+    <video width="100%" height="100%" id="preview"></video>
     <script type="text/javascript">
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
       scanner.addListener('scan', function (content) {
-        document.body.innerHTML = "<h1>掃描成功</h1>"
+        // document.body.innerHTML = "<body style='text-align:center;'><h1>掃描成功</h1></body>"
+        Swal.fire({
+          title: '完成登記，請快速移動。',
+          width: 600,
+          padding: '3em',
+          background: '#fff url(/trees.png)',
+          backdrop: `
+            rgba(0,0,123,0.4)
+            url("/nyan-cat.gif")
+            left top
+            no-repeat
+          `,
+          timer: 10000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+              const content = Swal.getHtmlContainer()
+              if (content) {
+                const b = content.querySelector('b')
+                if (b) {
+                  b.textContent = Swal.getTimerLeft()
+                }
+              }
+            }, 100)
+          },
+          willClose: () => {
+            history.go(-1);
+            clearInterval(timerInterval)
+          }
+        })
       });
       Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
+        if(cameras.length > 2){
+          scanner.start(cameras[2]);
+        }else if (cameras.length > 0) {
           scanner.start(cameras[0]);
         } else {
           console.error('No cameras found.');

@@ -1,11 +1,11 @@
 # 主題: Social Distence Free
 
 ## 作者:
-[台灣大隊長 - 全包了] Onebone1 nbakobejames@gmail.com
-[我大歐黃 - 前端設計] applewind0
-[可愛動物 - 前端設計] tsai1247
-[等等看IV - 後端開發] Charlie890414
-[全端廢物 - 後端開發] ZoneTwelve
+- [台灣大隊長 - 全包了] Onebone1 nbakobejames@gmail.com
+- [我大歐黃 - 前端設計] applewind0
+- [可愛動物 - 前端設計] tsai1247
+- [等等看IV - 後端開發] Charlie890414
+- [全端廢物 - 後端開發] ZoneTwelve
 
 ## LINENCE
 - Mozilla Public Linence 2.0

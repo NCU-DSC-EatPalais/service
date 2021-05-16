@@ -19,6 +19,8 @@ router.get('/', function(req, res, next){
 
 router.get('/shop', (req, res)=>{
   let { page, name } = req.query;
+	if(name=="")
+		return res.redirect("/")
   page = page || 0;
   let sql = `SELECT * FROM DSC.users WHERE name LIKE"%${name}%" limit ${page*10}, 10`;
   res.database.query( sql, (e, r, f)=>{

@@ -24,8 +24,8 @@ function request( name, page = 0 ){
         background: lightblue;
     }
     .list_scroll{
-        height: 500px;
-        overflow: scroll;
+        min-height: 200px;
+        overflow-y: scroll;
     }
     a:link, a:visited{
         color: black;
@@ -58,8 +58,29 @@ function request( name, page = 0 ){
     .list_scroll>.col:hover{
         background: lightslategrey;
     }
+    #main{
+        margin: 100px auto;
+        height:100%;
+    }
+    .view{
+        /* width: auto%; */
+    }
+    .bg-c{
+        padding: 20px;
+        border: 1px solid rgb(209, 207, 207);
+        background: #f8f9fa !important;
+    }
+    .frame-block{
+        
+        min-height: 500px;
+    }
 </style>
 
+<script>
+    window.onload = function(){
+        document.querySelector('#view-frame').src='/shop/<%= list[0].id %>'
+    }
+</script>
 
 
 <header>
@@ -77,28 +98,36 @@ function request( name, page = 0 ){
   </nav>
 </header>
 
-<div class="container blue">
+<div id="main" class="container">
 
-    <div class="container">
-        <nav class="navbar navbar-light red ">
-            <!-- <form class="container-fluid"> -->
-                <div class="input-group">
-                    <input type="text" id="shop-name" class="form-control" placeholder="請輸入店家名稱" aria-label="Username" aria-describedby="basic-addon1" value="<%= shop_name || '' %>">
-                    <button  class="btn btn-outline-success" type="submit" onclick="location.href=`/shop/?name=${document.querySelector('#shop-name').value}`">搜尋</button>
+    <div class="row" style="height:60%">
+        <div class="col-lg-4 bg-c">
+            <div class="container">
+                <nav class="navbar navbar-light red ">
+                    <!-- <form class="container-fluid"> -->
+                        <div class="input-group">
+                            <input type="text" id="shop-name" class="form-control" placeholder="請輸入店家名稱" aria-label="Username" aria-describedby="basic-addon1" value="<%= shop_name || '' %>">
+                            <button  class="btn btn-outline-success" type="submit" onclick="location.href=`/shop/?name=${document.querySelector('#shop-name').value}`">搜尋</button>
+                        </div>
+                    <!-- </form> -->
+                </nav>
+                
+                <div class="col gray">
+                    <p>商家列表</p>
                 </div>
-            <!-- </form> -->
-        </nav>
+            </div>
+            <div class="container list_scroll">
+                <% for(let shop of list){ %>
+                <div class="col" onclick="document.querySelector('#view-frame').src='/shop/<%=shop.id%>'">
+                    <%= shop.name %>
+                </div>
+                <% } %>
         
-        <div class="col gray">
-            <p>商家列表</p>
+            </div>            
+        </div>
+        <div class="col-lg-8 view bg-c frame-block" >
+            <iframe id="view-frame"  width="100%" height="100%" frameborder="0" ></iframe>
         </div>
     </div>
-    <div class="container list_scroll">
-        <% for(let shop of list){ %>
-        <div class="col">
-            <a href="/shop/<%=shop.id%>"><%= shop.name %></a>
-        </div>
-        <% } %>
 
-    </div>
 </div>

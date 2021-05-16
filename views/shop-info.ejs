@@ -3,8 +3,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <style>
+    body{
+        background: #f8f9fa !important;
+    }
     .big_container{
-        margin-top: 50px;
+        margin-top: 15px;
     }
     .bscolor{
         border: 1pt solid black;
@@ -34,20 +37,20 @@
         height: 100%;
     }
     .white{
-        background-color: white;
-        text-align: center;
+        /* background-color: white; */
+        /* text-align: center; */
         font-size: larger;
         font-family: 'Noto Sans TC', sans-serif;       
     }
     .gray{
         background-color: ghostwhite;
-        text-align: center;
+        /* text-align: center; */
         font-size: larger;
         font-family: 'Noto Sans TC', sans-serif;
-        margin-top: 20px;
+        /* margin-top: 20px;
         margin-bottom: 20px;
         margin-right: 250px;
-        margin-left: 250px;
+        margin-left: 250px; */
         border: 1px solid black;
     }
     .btn_color{
@@ -55,6 +58,12 @@
         font-size: 15px;
         color: black;
     }   
+    .head-text {
+        font-size: 48px;
+    }   
+    .head-text-btn {
+        font-size: 28px;
+    }
 </style>
 
 
@@ -62,35 +71,61 @@
 
 <div class="big_container">
 
-    <div class="container bscolor" style="text-align: center;">
-        <h1><%= data.name %></h1>
-        <div class="col white">
-            <b>商家簡介</b>
+    <div class="container bscolor">
+            <span class="head-text "><%= data.name %> <button class="head-text-btn btn btn-outline-success btn_color" type="submit" onclick="location.href='/shop/<%=data.id%>/calendar'">預約</button></span>
+        <div class="row g-3 align-items-center">
+            <div class="col-auto lead">
+                商家簡介：
+            </div>
+            <div class="col-auto">
+                <div class="block">
+                    <%= data.intro || "暫無" %>
+                </div>
+            </div>
         </div>
-        <div class="gray">
-            <p><%= data.intro || "暫無" %></p>
+
+        <div class="row g-3 align-items-center">
+            <div class="col-auto lead">
+                商家地址：
+            </div>
+            <div class="col-auto">
+                <div class="block">
+                    <%= data.address || "暫無" %>
+                </div>
+            </div>
         </div>
-        <div class="col white">
-            <b>商家地址</b>
+
+        <div class="row g-3 align-items-center">
+            <div class="col-auto lead">
+                商家聯絡方式：
+            </div>
+            <div class="col-auto">
+                <div class="block">
+                    <%= data.contact || "暫無" %>
+                </div>
+            </div>
         </div>
-        <div class="gray">
-            <p><%= data.address || "暫無" %></p>
+<!-- 
+        <div class="row g-3 align-items-center">
+            <div class="col-auto lead">
+                營業時間：
+            </div>
+            <div class="col-auto">
+                <div class="block">
+                    24 Hr
+                </div>
+            </div>
+        </div> -->
+
+        <div class="row g-3 align-items-center">
+            <div class="col-auto lead">
+                地圖：
+            </div>
+            <div class="block">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d904.2467311565225!2d121.19502372689321!3d24.966559494681853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDU3JzU3LjQiTiAxMjHCsDExJzQ0LjciRQ!5e0!3m2!1szh-TW!2stw!4v1621143773046!5m2!1szh-TW!2stw" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
-        <div class="col white">
-            <b>商家聯絡方式</b>
-        </div>
-        <div class="gray">
-            <%= data.contact || "暫無" %>
-        </div>
-        <div class="col white">
-            <b>商家營業時間</b>
-        </div>
-        <div class="gray">
-            24hr不營業
-        </div>
-        <div class="col white">
-            <button class="btn btn-outline-success btn_color" type="submit" onclick="location.href='/shop/<%=data.id%>/calendar'">預約</button>
-        </div>
+
         
     </div>
 </div>

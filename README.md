@@ -21,11 +21,10 @@
 6. 推廣大眾使用 APP 不易
 
 ## 使用到的技術
-Software:
-1. HTML
-2. CSS
-3. Javascript (Node.js)
-4. Database
+Web based:
+1. Navtive HTML
+2. Native CSS
+3. Native Javascript (Node.js)
 
 Hardware:
 1. Arduino

@@ -54,7 +54,14 @@ router.all("*", (req, res, next)=>{
   }
 });
 
-
+router.post('/shop/:id/preorder/:year/:month/:day/:hour', (req, res)=>{
+  let { id, year, month, day, hour } = req.params;
+  let sql = `INSERT INTO DSC.rc_sheet (id, suid, guid, stime, etime) VALUES (NULL, ${id}, ${req.session.uid}, "${year}/${month}/${day} ${hour}:00:00", "${year}/${month}/${day} ${hour+1}:00:00");`
+  res.database.query( sql, (e, r, f)=>{
+    console.log( r, f );
+    res.end("test");
+  } );
+})
 
 
 module.exports = router;

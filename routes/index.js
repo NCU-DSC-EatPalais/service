@@ -41,14 +41,45 @@ router.get('/shop/:id', (req, res)=>{
 
 router.get('/shop/:id/calendar', (req, res)=>{
 	let { id } = req.params;
-	res.render( 'shop-calendar', {name: req.session.name || "訪客"} );
+	let { m } = req.query;
+	res.render( 'shop-calendar', {
+		name: req.session.name || "訪客",
+		message:m || "",
+	} );
 });
+
+router.get('/login', (req, res)=>{
+	res.redirect("/");
+});
+
+router.get("/test", (req, res)=>{
+	res.render("gen_qrcode");
+})
 
 router.get('/shop/:id/preorder/:year/:month/:day', (req, res)=>{
 	let { id, year, month, day } = req.params;
+	let schedule = [];
+	for(let i = 0 ; i < 24 ; i ++){
+		schedule.push( {
+			uid: id,
+			text: i,
+			count: ~~(Math.random()*10),
+			link:`/shop/${id}/preorder/${year}/${month}/${day}/${i}`,
+		} );
+	}
 	res.render('preorder', {
-		id, year, month, day
+		id, year, month, day, schedule, 
+		name: req.session.name || "訪客",
 	});
+});
+
+router.get('/shop/:id/preorder/:year/:month/:day/:hour', (req, res)=>{
+	let { id, year, month, day } = req.params;
+	res.redirect(`/shop/${id}/calendar/?m=預約成功`)
+});
+
+router.get('/quick_pass', (req, res)=>{
+	res.render('scan_qrcode');
 });
 
 module.exports = router;

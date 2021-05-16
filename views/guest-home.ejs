@@ -74,17 +74,39 @@ function request( name, page = 0 ){
         
         min-height: 500px;
     }
+    #navbar{
+        z-index: 99;
+        position: fixed;
+        width:100%;
+        top:0px;
+    }
 </style>
 
 <script>
     window.onload = function(){
         document.querySelector('#view-frame').src='/shop/<%= list[0].id %>'
     }
+    window.onscroll = function() {myFunction()};
+
+// Get the navbar
+    var navbar = document.getElementById("navbar");
+
+    // Get the offset position of the navbar
+    var sticky = navbar.offsetTop;
+
+    // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+    if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+    } else {
+        navbar.classList.remove("sticky");
+    }
+    } 
 </script>
 
 
 <header>
-  <nav class="navbar navbar-light bg-light">
+  <nav id="navbar" class="navbar navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand">Social Distence Free</a>
       <span class="navbar-text">
